@@ -13,7 +13,7 @@ class Pengajuan extends Model
         'nomor_pengajuan',
         'penduduk_id',
         'layanan_id',
-        'nomor_hp',
+        'no_hp',
         'status',
         'catatan_admin',
         'diproses_oleh',

@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DetailSktm extends Model
@@ -15,7 +14,7 @@ class DetailSktm extends Model
     protected $fillable = [
         'pengajuan_id',
         'jumlah_anggota_keluarga',
-        'penghasilan_per_builan',
+        'penghasilan_per_bulan',
         'keperluan',
     ];
 
@@ -23,7 +22,7 @@ class DetailSktm extends Model
     {
         return [
             'jumlah_anggota_keluarga' => 'integer',
-            'penghasilan_per_perbulan' => 'decimal:2',
+            'penghasilan_per_bulan' => 'decimal:2',
         ];
     }
 

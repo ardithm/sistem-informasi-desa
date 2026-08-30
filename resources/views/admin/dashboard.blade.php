@@ -1,212 +1,193 @@
 <x-app-layout>
-
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-3 pb-2 pt-4 md:flex-row md:items-end md:justify-between">
             <div>
-                <h2 class="font-semibold text-2xl text-gray-900 leading-tight tracking-tight">
-                    Dashboard Admin Desa
+                <div class="mb-3 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-[#d1c9ff]">
+                    Dashboard Operasional
+                </div>
+                <h2 class="font-display text-4xl text-white md:text-5xl">
+                    Ringkasan Desa
                 </h2>
-                <p class="text-sm text-gray-500 mt-2 font-medium">
-                    Ringkasan sistem pelayanan administrasi desa
-                </p>
             </div>
+            <p class="max-w-xl text-sm text-[#9f9fa0] md:text-right">
+                Monitoring pelayanan, pengajuan aktif, dan status dokumen secara real time.
+            </p>
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
-
-            {{-- Statistik Utama --}}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {{-- Penduduk --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 hover:shadow-md transition-all duration-300 relative group">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 mb-1">Penduduk Aktif</p>
-                                <p class="text-4xl font-extrabold text-gray-900 tracking-tight">{{ $totalPenduduk }}</p>
-                            </div>
-                            <div class="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:scale-110 group-hover:bg-blue-100 transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                </svg>
-                            </div>
-                        </div>
+    <div class="space-y-8 py-8">
+        <section class="metrics-grid grid gap-5">
+            <div class="admin-stat metric-accent-iris rounded-[30px] p-6 text-white">
+                <div class="mb-6 flex items-center justify-between">
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-[#d1c9ff]">Penduduk aktif</span>
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-[#f5f5f7]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm-8 9a4 4 0 014-4h0a4 4 0 014 4v1H8v-1z" />
+                        </svg>
                     </div>
-                    <div class="h-1 w-full bg-blue-500 absolute bottom-0 left-0 opacity-80"></div>
                 </div>
-
-                {{-- Total Pengajuan --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 hover:shadow-md transition-all duration-300 relative group">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 mb-1">Total Pengajuan</p>
-                                <p class="text-4xl font-extrabold text-gray-900 tracking-tight">{{ $totalPengajuan }}</p>
-                            </div>
-                            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl group-hover:scale-110 group-hover:bg-indigo-100 transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-1 w-full bg-indigo-500 absolute bottom-0 left-0 opacity-80"></div>
-                </div>
-
-                {{-- Selesai --}}
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100 hover:shadow-md transition-all duration-300 relative group">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 mb-1">Pengajuan Selesai</p>
-                                <p class="text-4xl font-extrabold text-gray-900 tracking-tight">{{ $pengajuanSelesai }}</p>
-                            </div>
-                            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl group-hover:scale-110 group-hover:bg-emerald-100 transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-1 w-full bg-emerald-500 absolute bottom-0 left-0 opacity-80"></div>
-                </div>
+                <div class="text-4xl font-semibold tracking-tight text-white">{{ $totalPenduduk }}</div>
+                <div class="mt-4 text-sm text-[#d1c9ff]">Data penduduk terdaftar</div>
             </div>
 
-            {{-- Statistik Status --}}
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-amber-300 transition-colors duration-300 flex items-center space-x-4">
-                    <div class="p-3 bg-amber-50 text-amber-500 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div class="admin-stat metric-accent-cyan rounded-[30px] p-6 text-white">
+                <div class="mb-6 flex items-center justify-between">
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-[#d1c9ff]">Total pengajuan</span>
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-[#f5f5f7]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <div>
-                        <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Menunggu</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $pengajuanMenunggu }}</p>
-                    </div>
                 </div>
-
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-rose-300 transition-colors duration-300 flex items-center space-x-4">
-                    <div class="p-3 bg-rose-50 text-rose-500 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Perbaikan</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $pengajuanPerluPerbaikan }}</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-blue-300 transition-colors duration-300 flex items-center space-x-4">
-                    <div class="p-3 bg-blue-50 text-blue-500 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Diproses</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $pengajuanDiproses }}</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:border-red-300 transition-colors duration-300 flex items-center space-x-4">
-                    <div class="p-3 bg-red-50 text-red-500 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-xs font-medium text-gray-500 uppercase tracking-wider">Ditolak</p>
-                        <p class="text-2xl font-bold text-gray-900">{{ $pengajuanDitolak }}</p>
-                    </div>
-                </div>
+                <div class="text-4xl font-semibold tracking-tight text-white">{{ $totalPengajuan }}</div>
+                <div class="mt-4 text-sm text-[#d1c9ff]">Semua pengajuan masuk</div>
             </div>
 
-            {{-- Pengajuan Terbaru --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl border border-gray-100">
-                <div class="p-6 border-b border-gray-100">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900">
-                                Pengajuan Terbaru
-                            </h3>
-                            <p class="text-sm text-gray-500 mt-1">
-                                10 pengajuan terakhir yang masuk ke sistem
-                            </p>
-                        </div>
-                        <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
-                            Lihat Semua
-                        </a>
+            <div class="admin-stat metric-accent-orchid rounded-[30px] p-6 text-white">
+                <div class="mb-6 flex items-center justify-between">
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-[#f7d7f1]">Diproses</span>
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-[#f5f5f7]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
                 </div>
+                <div class="text-4xl font-semibold tracking-tight text-white">{{ $pengajuanDiproses }}</div>
+                <div class="mt-4 text-sm text-[#f7d7f1]">Sedang ditangani</div>
+            </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50/50">
-                                <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Nomor</th>
-                                <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Pemohon</th>
-                                <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Layanan</th>
-                                <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                                <th class="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            @forelse ($pengajuanTerbaru as $pengajuan)
-                            <tr class="hover:bg-gray-50/50 transition-colors group">
-                                <td class="py-4 px-6">
-                                    <span class="text-sm font-semibold text-gray-900">{{ $pengajuan->nomor_pengajuan }}</span>
-                                </td>
-                                <td class="py-4 px-6">
-                                    <div class="flex items-center">
-                                        <div class="h-8 w-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xs mr-3">
-                                            {{ substr($pengajuan->penduduk->nama_lengkap, 0, 1) }}
-                                        </div>
-                                        <span class="text-sm text-gray-700 font-medium">{{ $pengajuan->penduduk->nama_lengkap }}</span>
+            <div class="admin-stat metric-accent-periwinkle rounded-[30px] p-6 text-white">
+                <div class="mb-6 flex items-center justify-between">
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-[#dfeaff]">Selesai</span>
+                    <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-[#f5f5f7]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 3" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="text-4xl font-semibold tracking-tight text-white">{{ $pengajuanSelesai }}</div>
+                <div class="mt-4 text-sm text-[#dfeaff]">Surat telah terbit</div>
+            </div>
+        </section>
+
+        <section class="admin-panel rounded-[30px] p-6 sm:p-8">
+            <div class="mb-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <div class="text-[10px] uppercase tracking-[0.18em] text-[#9f9fa0]">Status pengajuan</div>
+                    <h3 class="mt-2 font-display text-3xl text-white">Kondisi harian</h3>
+                </div>
+                <div class="text-sm text-[#9f9fa0]">Update otomatis berdasarkan data sistem</div>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                <div class="rounded-[24px] border border-white/10 bg-[#171819] p-5">
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-[#9f9fa0]">Menunggu</div>
+                        <div class="rounded-full bg-[#f7d577]/10 p-2 text-[#f7d577]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-3xl font-semibold text-white">{{ $pengajuanMenunggu }}</div>
+                </div>
+
+                <div class="rounded-[24px] border border-white/10 bg-[#171819] p-5">
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-[#9f9fa0]">Perbaikan</div>
+                        <div class="rounded-full bg-[#f3bce9]/10 p-2 text-[#f3bce9]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5.458 19h13.084A2.458 2.458 0 0021 16.542V11.5A2.458 2.458 0 0018.542 9H16V7a4 4 0 10-8 0v2H5.458A2.458 2.458 0 003 11.5v5.042A2.458 2.458 0 005.458 19z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-3xl font-semibold text-white">{{ $pengajuanPerluPerbaikan }}</div>
+                </div>
+
+                <div class="rounded-[24px] border border-white/10 bg-[#171819] p-5">
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-[#9f9fa0]">Diproses</div>
+                        <div class="rounded-full bg-[#7ed9f6]/10 p-2 text-[#7ed9f6]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-3xl font-semibold text-white">{{ $pengajuanDiproses }}</div>
+                </div>
+
+                <div class="rounded-[24px] border border-white/10 bg-[#171819] p-5">
+                    <div class="flex items-center justify-between">
+                        <div class="text-[10px] uppercase tracking-[0.18em] text-[#9f9fa0]">Ditolak</div>
+                        <div class="rounded-full bg-[#f8b5b5]/10 p-2 text-[#f8b5b5]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-3xl font-semibold text-white">{{ $pengajuanDitolak }}</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-card overflow-hidden rounded-[30px]">
+            <div class="flex flex-col gap-3 border-b border-white/10 p-6 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <div class="text-[10px] uppercase tracking-[0.18em] text-[#9f9fa0]">Aktivitas terbaru</div>
+                    <h3 class="mt-2 font-display text-3xl text-white">Pengajuan terakhir</h3>
+                </div>
+                <a href="{{ route('admin.pengajuan.index') }}" class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-[#f5f5f7] transition hover:bg-white/10">
+                    Lihat semua
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-left">
+                    <thead class="bg-white/5 text-[#9f9fa0]">
+                        <tr>
+                            <th class="px-6 py-4 text-[10px] uppercase tracking-[0.18em]">Nomor</th>
+                            <th class="px-6 py-4 text-[10px] uppercase tracking-[0.18em]">Pemohon</th>
+                            <th class="px-6 py-4 text-[10px] uppercase tracking-[0.18em]">Layanan</th>
+                            <th class="px-6 py-4 text-[10px] uppercase tracking-[0.18em]">Status</th>
+                            <th class="px-6 py-4 text-[10px] uppercase tracking-[0.18em] text-right">Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10 text-[#f5f5f7]">
+                        @forelse ($pengajuanTerbaru as $pengajuan)
+                        <tr class="transition hover:bg-white/5">
+                            <td class="px-6 py-4 text-sm font-medium">{{ $pengajuan->nomor_pengajuan }}</td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-[#847dff] text-xs font-semibold text-white">
+                                        {{ strtoupper(substr($pengajuan->penduduk->nama_lengkap, 0, 1)) }}
                                     </div>
-                                </td>
-                                <td class="py-4 px-6">
-                                    <span class="text-sm text-gray-600">{{ $pengajuan->layanan->nama_layanan }}</span>
-                                </td>
-                                <td class="py-4 px-6">
-                                    @php
-                                        $statusClass = match($pengajuan->status) {
-                                            'menunggu' => 'bg-amber-50 text-amber-700 ring-1 ring-amber-600/20',
-                                            'diproses' => 'bg-blue-50 text-blue-700 ring-1 ring-blue-600/20',
-                                            'selesai' => 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20',
-                                            'ditolak' => 'bg-red-50 text-red-700 ring-1 ring-red-600/20',
-                                            'perlu_perbaikan' => 'bg-rose-50 text-rose-700 ring-1 ring-rose-600/20',
-                                            default => 'bg-gray-50 text-gray-700 ring-1 ring-gray-600/20'
-                                        };
-                                    @endphp
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $statusClass }}">
-                                        {{ str_replace('_', ' ', ucfirst($pengajuan->status)) }}
-                                    </span>
-                                </td>
-                                <td class="py-4 px-6 text-right">
-                                    <span class="text-sm text-gray-500">{{ $pengajuan->created_at->format('d/m/Y') }}</span>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="5" class="py-12 text-center">
-                                    <div class="flex flex-col items-center justify-center">
-                                        <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                        <h3 class="mt-2 text-sm font-medium text-gray-900">Belum ada pengajuan</h3>
-                                        <p class="mt-1 text-sm text-gray-500">Data pengajuan terbaru akan muncul di sini.</p>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                                    <span class="text-sm text-[#f5f5f7]">{{ $pengajuan->penduduk->nama_lengkap }}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-[#d1c9ff]">{{ $pengajuan->layanan->nama_layanan }}</td>
+                            <td class="px-6 py-4">
+                                @php
+                                $statusKey = str_replace(' ', '_', strtolower($pengajuan->status));
+                                @endphp
+                                <span class="status-badge status-{{ $statusKey }}">
+                                    {{ str_replace('_', ' ', ucfirst($pengajuan->status)) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-right text-sm text-[#9f9fa0]">{{ $pengajuan->created_at->format('d/m/Y') }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-16 text-center">
+                                <div class="mx-auto max-w-sm">
+                                    <div class="text-sm uppercase tracking-[0.18em] text-[#9f9fa0]">Tidak ada data</div>
+                                    <p class="mt-2 text-[#f5f5f7]">Belum ada pengajuan yang masuk ke sistem.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-
-        </div>
+        </section>
     </div>
 </x-app-layout>

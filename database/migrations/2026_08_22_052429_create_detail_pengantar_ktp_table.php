@@ -21,7 +21,7 @@ return new class extends Migration
                 'pembuatan_baru',
                 'hilang',
                 'rusak',
-                'perbuhan_data',
+                'perubahan_data',
             ]);
             $table->timestamps();
         });

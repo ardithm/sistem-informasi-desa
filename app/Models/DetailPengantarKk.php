@@ -10,7 +10,7 @@ class DetailPengantarKk extends Model
 {
     use HasFactory;
 
-    protected $table = 'detail__pengantar_kk';
+    protected $table = 'detail_pengantar_kk';
 
     protected $fillable = [
         'pengajuan_id',
