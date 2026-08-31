@@ -4,45 +4,63 @@
 
 @section('content')
 
-<div class="py-12">
+<div class="py-24">
 
     <div class="max-w-3xl mx-auto px-6">
 
-        <div class="mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">
+        {{-- Header --}}
+        <div class="mb-12">
+            <p class="font-mono text-[11px] font-medium tracking-widest text-adm-primary uppercase">
+                FORMULIR LAYANAN
+            </p>
+            <h1 class="font-display text-4xl md:text-5xl lg:text-[48px] leading-none text-adm-text-main tracking-tight mt-4">
                 Pengajuan Surat Pengantar KK
             </h1>
-            <p class="text-sm text-gray-500 mt-1">
-                Lengkapi data pengajuan dan dokumen yang diperlukan.
+            <p class="font-sans font-light text-[16px] text-adm-text-body mt-3">
+                Lengkapi data pengajuan dan unggah dokumen persyaratan di bawah ini.
             </p>
         </div>
 
-        <div class="bg-white shadow-sm rounded-lg overflow-hidden mb-6">
-            <div class="p-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-5">
-                    Data Penduduk
+        {{-- Data Penduduk --}}
+        <div class="bg-adm-card border border-adm-border shadow-[0_8px_40px_rgba(29,114,254,0.06)] rounded-[24px] overflow-hidden mb-8">
+            <div class="p-8">
+                <h2 class="font-display text-[22px] text-adm-text-main font-semibold mb-6">
+                    Data Identitas Pemohon
                 </h2>
 
-                <div class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
-                        <div class="text-sm font-medium text-gray-500">NIK</div>
-                        <div class="sm:col-span-2 text-sm text-gray-800">{{ $penduduk->nik }}</div>
+                <div class="bg-adm-canvas border border-adm-border rounded-[16px] p-6 space-y-4">
+                    
+                    {{-- NIK --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 pb-3 border-b border-adm-border/60">
+                        <div class="text-[13px] font-medium text-adm-text-muted">NIK</div>
+                        <div class="sm:col-span-2 text-[13px] font-semibold font-mono text-adm-text-main">
+                            {{ $penduduk->nik }}
+                        </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
-                        <div class="text-sm font-medium text-gray-500">Nama Lengkap</div>
-                        <div class="sm:col-span-2 text-sm text-gray-800">{{ $penduduk->nama_lengkap }}</div>
+                    {{-- Nama --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 pb-3 border-b border-adm-border/60">
+                        <div class="text-[13px] font-medium text-adm-text-muted">Nama Lengkap</div>
+                        <div class="sm:col-span-2 text-[13px] font-semibold text-adm-text-main">
+                            {{ $penduduk->nama_lengkap }}
+                        </div>
                     </div>
 
+                    {{-- Alamat KTP --}}
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
-                        <div class="text-sm font-medium text-gray-500">Alamat</div>
-                        <div class="sm:col-span-2 text-sm text-gray-800">{{ $penduduk->alamat }}</div>
+                        <div class="text-[13px] font-medium text-adm-text-muted">Alamat Sesuai KTP</div>
+                        <div class="sm:col-span-2 text-[13px] font-medium text-adm-text-main leading-relaxed">
+                            {{ $penduduk->alamat }}
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
-        <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+        {{-- Form Pengajuan --}}
+        <div class="bg-adm-card border border-adm-border shadow-[0_8px_40px_rgba(29,114,254,0.06)] rounded-[24px] overflow-hidden">
+
             <form action="{{ route('layanan.pengantar-kk.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
@@ -51,23 +69,25 @@
                 <input type="hidden" name="layanan_id" value="{{ $layanan->id }}">
                 <input type="hidden" name="no_hp" value="{{ $no_hp }}">
 
-                <div class="p-6 space-y-6">
+                <div class="p-8 space-y-6">
+
+                    {{-- Nomor HP --}}
                     <div>
-                        <label for="no_hp_display" class="block text-sm font-medium text-gray-700 mb-2">
-                            Nomor HP
+                        <label for="no_hp_display" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                            Nomor WhatsApp
                         </label>
                         <input
                             id="no_hp_display"
                             type="tel"
                             value="{{ $no_hp }}"
                             readonly
-                            class="w-full border-gray-300 rounded-md bg-gray-50">
+                            class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2.5 px-3.5 text-[13px] text-adm-text-muted select-none cursor-not-allowed">
                     </div>
 
+                    {{-- Nomor KK --}}
                     <div>
-                        <label for="nomor_kk" class="block text-sm font-medium text-gray-700 mb-2">
-                            Nomor KK
-                            <span class="text-red-600">*</span>
+                        <label for="nomor_kk" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                            Nomor Kartu Keluarga <span class="text-adm-rose-fg">*</span>
                         </label>
                         <input
                             id="nomor_kk"
@@ -76,35 +96,50 @@
                             value="{{ old('nomor_kk') }}"
                             maxlength="16"
                             required
-                            class="w-full border-gray-300 rounded-md focus:border-gray-500 focus:ring-gray-500">
+                            placeholder="Masukkan 16 digit Nomor KK Anda"
+                            class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2.5 px-3.5 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">
 
                         @error('nomor_kk')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-[12px] text-adm-rose-fg mt-2">
+                            {{ $message }}
+                        </p>
                         @enderror
                     </div>
 
+                    {{-- Keperluan --}}
                     <div>
-                        <label for="keperluan" class="block text-sm font-medium text-gray-700 mb-2">
-                            Keperluan
-                            <span class="text-red-600">*</span>
+                        <label for="keperluan" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                            Keperluan Pembuatan Surat <span class="text-adm-rose-fg">*</span>
                         </label>
                         <textarea
                             id="keperluan"
                             name="keperluan"
-                            rows="4"
+                            rows="3"
                             required
-                            class="w-full border-gray-300 rounded-md focus:border-gray-500 focus:ring-gray-500">{{ old('keperluan') }}</textarea>
+                            placeholder="Contoh: Kebutuhan mendaftarkan sekolah anak, perubahan anggota keluarga, dsb..."
+                            class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2.5 px-3.5 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">{{ old('keperluan') }}</textarea>
 
                         @error('keperluan')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-[12px] text-adm-rose-fg mt-2">
+                            {{ $message }}
+                        </p>
                         @enderror
                     </div>
 
-                    <div class="space-y-4 border-t border-gray-200 pt-6">
-                        <div>
-                            <label for="ktp" class="block text-sm font-medium text-gray-700 mb-2">
-                                KTP
-                                <span class="text-red-600">*</span>
+                    {{-- Dokumen --}}
+                    <div class="pt-6 border-t border-adm-border">
+                        <h2 class="font-display text-[22px] text-adm-text-main font-semibold mb-6">
+                            Dokumen Persyaratan
+                        </h2>
+
+                        @php
+                            $fileInputClasses = "block w-full text-[13px] text-adm-text-body file:mr-4 file:py-2 file:px-4 file:rounded-[6px] file:border-0 file:text-[13px] file:font-semibold file:bg-adm-primary-soft file:text-adm-primary hover:file:bg-adm-primary hover:file:text-white file:transition-colors border border-adm-border bg-adm-input rounded-[8px] cursor-pointer";
+                        @endphp
+
+                        {{-- KTP --}}
+                        <div class="mb-6">
+                            <label for="ktp" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                                Foto / Scan KTP Pemohon <span class="text-adm-rose-fg">*</span>
                             </label>
                             <input
                                 id="ktp"
@@ -112,17 +147,21 @@
                                 name="ktp"
                                 accept=".jpg,.jpeg,.png,.pdf"
                                 required
-                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-800 file:text-white hover:file:bg-gray-700">
-
+                                class="{{ $fileInputClasses }}">
+                            <p class="text-[11px] text-adm-text-muted mt-2">
+                                Format: JPG, JPEG, PNG, atau PDF. Maksimal berkas: 2 MB.
+                            </p>
                             @error('ktp')
-                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                            <p class="text-[12px] text-adm-rose-fg mt-2">
+                                {{ $message }}
+                            </p>
                             @enderror
                         </div>
 
-                        <div>
-                            <label for="kk" class="block text-sm font-medium text-gray-700 mb-2">
-                                KK
-                                <span class="text-red-600">*</span>
+                        {{-- KK --}}
+                        <div class="mb-6">
+                            <label for="kk" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                                Foto / Scan Kartu Keluarga Lama <span class="text-adm-rose-fg">*</span>
                             </label>
                             <input
                                 id="kk"
@@ -130,43 +169,59 @@
                                 name="kk"
                                 accept=".jpg,.jpeg,.png,.pdf"
                                 required
-                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-800 file:text-white hover:file:bg-gray-700">
-
+                                class="{{ $fileInputClasses }}">
+                            <p class="text-[11px] text-adm-text-muted mt-2">
+                                Format: JPG, JPEG, PNG, atau PDF. Maksimal berkas: 2 MB.
+                            </p>
                             @error('kk')
-                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                            <p class="text-[12px] text-adm-rose-fg mt-2">
+                                {{ $message }}
+                            </p>
                             @enderror
                         </div>
 
+                        {{-- Surat RT/RW --}}
                         <div>
-                            <label for="surat_rt_rw" class="block text-sm font-medium text-gray-700 mb-2">
-                                Surat Pengantar RT/RW (Opsional)
+                            <label for="surat_rt_rw" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                                Foto / Scan Surat Pengantar RT/RW <span class="text-adm-text-muted">(Opsional)</span>
                             </label>
                             <input
                                 id="surat_rt_rw"
                                 type="file"
                                 name="surat_rt_rw"
                                 accept=".jpg,.jpeg,.png,.pdf"
-                                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-gray-800 file:text-white hover:file:bg-gray-700">
-
+                                class="{{ $fileInputClasses }}">
+                            <p class="text-[11px] text-adm-text-muted mt-2">
+                                Diunggah jika diwajibkan oleh RT/RW setempat. Format: JPG, JPEG, PNG, atau PDF. Maksimal 2 MB.
+                            </p>
                             @error('surat_rt_rw')
-                            <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                            <p class="text-[12px] text-adm-rose-fg mt-2">
+                                {{ $message }}
+                            </p>
                             @enderror
                         </div>
+
                     </div>
 
-                    <div class="flex justify-between items-center pt-4">
-                        <a href="{{ route('layanan.pengantar-kk') }}" class="text-sm text-gray-600 hover:text-gray-800">
-                            Kembali
-                        </a>
-
-                        <button type="submit" class="px-5 py-2.5 bg-gray-800 text-white rounded-md hover:bg-gray-700 text-sm font-medium">
-                            Ajukan Pengantar KK
-                        </button>
-                    </div>
                 </div>
+
+                {{-- Footer Buttons --}}
+                <div class="px-8 py-6 bg-adm-canvas border-t border-adm-border flex items-center justify-between gap-4">
+                    <a href="{{ route('layanan.pengantar-kk') }}" class="inline-flex items-center justify-center bg-white border border-adm-border text-adm-text-main hover:bg-adm-canvas px-6 py-3 rounded-[8px] text-[14px] font-semibold transition-all shadow-sm">
+                        Batal
+                    </a>
+                    <button type="submit" class="inline-flex items-center justify-center gap-1.5 bg-adm-primary text-white hover:bg-adm-primary-hover px-6 py-3 rounded-[8px] text-[14px] font-semibold transition-all shadow-md">
+                        Ajukan Permohonan
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+
             </form>
+
         </div>
+
     </div>
+
 </div>
 
 @endsection

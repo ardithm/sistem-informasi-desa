@@ -4,95 +4,55 @@
 
 @section('content')
 
-<div class="py-12">
+<div class="py-24">
 
     <div class="max-w-xl mx-auto px-6">
 
-
         {{-- Error --}}
         @if (isset($errors) && $errors->any())
-
-        <div class="mb-6 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
-
-            <p class="font-medium mb-2">
+        <div class="mb-6 bg-adm-rose-bg border border-adm-rose-fg/20 text-adm-rose-fg px-5 py-4 rounded-[12px]">
+            <p class="font-semibold text-[14px] mb-2">
                 Periksa kembali data:
             </p>
-
-            <ul class="list-disc list-inside text-sm space-y-1">
-
+            <ul class="list-disc list-inside text-[13px] space-y-1">
                 @foreach ($errors->all() as $error)
-
-                <li>
-                    {{ $error }}
-                </li>
-
+                <li>{{ $error }}</li>
                 @endforeach
-
             </ul>
-
         </div>
-
         @endif
 
-
         {{-- Card --}}
-        <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+        <div class="bg-adm-card border border-adm-border shadow-[0_8px_40px_rgba(29,114,254,0.06)] rounded-[24px] overflow-hidden">
 
-            <div class="p-6">
-
+            <div class="p-8 md:p-12">
 
                 {{-- Judul --}}
-                <div class="mb-6">
-
-                    <h1 class="text-xl font-semibold text-gray-800">
+                <div class="mb-8">
+                    <p class="font-mono text-[11px] font-medium tracking-widest text-adm-primary uppercase">
+                        SURAT KETERANGAN DOMISILI
+                    </p>
+                    <h1 class="font-display text-[28px] md:text-[32px] leading-tight text-adm-text-main font-semibold mt-2">
                         Verifikasi Data Penduduk
                     </h1>
-
-                    <p class="text-sm text-gray-500 mt-1">
-                        Surat Keterangan Domisili
-                    </p>
-
                 </div>
-
 
                 {{-- Informasi --}}
-                <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
-
-                    <p class="text-sm text-gray-600 leading-relaxed">
-
-                        Silakan masukkan NIK dan nomor HP untuk
-                        memverifikasi data penduduk sebelum
-                        melanjutkan pengajuan surat.
-
+                <div class="mb-8 p-5 bg-adm-primary-soft border border-adm-primary/10 rounded-[16px]">
+                    <p class="font-sans font-light text-[14px] leading-relaxed text-adm-text-body">
+                        Silakan masukkan NIK dan nomor handphone Anda untuk memverifikasi data penduduk sebelum melanjutkan pengisian formulir surat.
                     </p>
-
                 </div>
 
-
                 {{-- Form --}}
-                <form
-                    action="{{ route('layanan.domisili.verifikasi') }}"
-                    method="POST">
-
+                <form action="{{ route('layanan.domisili.verifikasi') }}" method="POST">
                     @csrf
 
-
                     {{-- NIK --}}
-                    <div class="mb-5">
-
-                        <label
-                            for="nik"
-                            class="block text-sm font-medium text-gray-700 mb-2">
-
-                            NIK
-
-                            <span class="text-red-600">
-                                *
-                            </span>
-
+                    <div class="mb-6">
+                        <label for="nik" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                            NIK (Nomor Induk Kependudukan) <span class="text-adm-rose-fg">*</span>
                         </label>
-
-
                         <input
                             id="nik"
                             type="text"
@@ -102,45 +62,21 @@
                             maxlength="16"
                             required
                             autofocus
-                            placeholder="Masukkan 16 digit NIK"
-                            class="w-full border-gray-300 rounded-md focus:border-gray-500 focus:ring-gray-500">
-
-
-                        @if (isset($errors) && $errors->has('nik'))
-
-                        @if (isset($errors) && $errors->has('nik'))
+                            placeholder="Masukkan 16 digit NIK Anda"
+                            class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2.5 px-3.5 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">
 
                         @error('nik')
-
-                        <p class="text-sm text-red-600 mt-1">
+                        <p class="text-[12px] text-adm-rose-fg mt-2">
                             {{ $message }}
                         </p>
-
                         @enderror
-
-                        @endif
-
-                        @endif
-
                     </div>
 
-
                     {{-- Nomor HP --}}
-                    <div class="mb-6">
-
-                        <label
-                            for="no_hp"
-                            class="block text-sm font-medium text-gray-700 mb-2">
-
-                            Nomor HP
-
-                            <span class="text-red-600">
-                                *
-                            </span>
-
+                    <div class="mb-8">
+                        <label for="no_hp" class="block text-[13px] font-medium text-adm-text-main mb-2">
+                            Nomor WhatsApp <span class="text-adm-rose-fg">*</span>
                         </label>
-
-
                         <input
                             id="no_hp"
                             type="tel"
@@ -149,58 +85,29 @@
                             maxlength="20"
                             required
                             placeholder="Contoh: 081234567890"
-                            class="w-full border-gray-300 rounded-md focus:border-gray-500 focus:ring-gray-500">
+                            class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2.5 px-3.5 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">
 
-
-                        <p class="text-xs text-gray-500 mt-2">
-
-                            Nomor HP digunakan untuk keperluan
-                            pengajuan dan komunikasi terkait layanan.
-
+                        <p class="text-[11px] text-adm-text-muted mt-2">
+                            Nomor aktif yang dapat dihubungi untuk konfirmasi pengajuan surat Anda.
                         </p>
-
-
-                        @if (isset($errors) && $errors->has('no_hp'))
-
-                        @if (isset($errors) && $errors->has('no_hp'))
 
                         @error('no_hp')
-
-                        <p class="text-sm text-red-600 mt-1">
+                        <p class="text-[12px] text-adm-rose-fg mt-2">
                             {{ $message }}
                         </p>
-
                         @enderror
-
-                        @endif
-
-                        @endif
-
                     </div>
-
 
                     {{-- Tombol --}}
-                    <div class="flex justify-between items-center">
-
-                        <a
-                            href="{{ route('layanan') }}"
-                            class="px-5 py-2 border border-gray-300 text-gray-700 rounded-md text-sm hover:bg-gray-50">
-
-                            Kembali
-
+                    <div class="flex items-center justify-between gap-4 pt-6 border-t border-adm-border">
+                        <a href="{{ route('layanan') }}" class="inline-flex items-center justify-center bg-white border border-adm-border text-adm-text-main hover:bg-adm-canvas px-6 py-3 rounded-[8px] text-[14px] font-semibold transition-all shadow-sm">
+                            Batal
                         </a>
-
-
-                        <button
-                            type="submit"
-                            class="px-5 py-2 bg-gray-800 text-white rounded-md text-sm hover:bg-gray-700">
-
-                            Lanjut
-
+                        <button type="submit" class="inline-flex items-center justify-center gap-1.5 bg-adm-primary text-white hover:bg-adm-primary-hover px-6 py-3 rounded-[8px] text-[14px] font-semibold transition-all shadow-md">
+                            Lanjut Pengajuan
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </button>
-
                     </div>
-
 
                 </form>
 

@@ -4,142 +4,93 @@
 
 @section('content')
 
-<div class="py-12">
+<div class="py-24">
 
     <div class="max-w-xl mx-auto px-6">
 
-        <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+        <div class="bg-adm-card border border-adm-border shadow-[0_8px_40px_rgba(29,114,254,0.06)] rounded-[24px] overflow-hidden">
 
-            <div class="p-6">
+            <div class="p-8 md:p-12 text-center">
 
-                {{-- Ikon berhasil --}}
-                <div class="flex justify-center mb-5">
-
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-
-                        <svg
-                            class="w-8 h-8 text-green-600"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24">
-
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M5 13l4 4L19 7">
-                            </path>
-
+                {{-- Ikon Berhasil --}}
+                <div class="flex justify-center mb-6">
+                    <div class="w-16 h-16 bg-adm-green-bg text-adm-green-fg rounded-full flex items-center justify-center border border-adm-green-fg/10">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                         </svg>
-
                     </div>
-
                 </div>
-
 
                 {{-- Judul --}}
-                <div class="text-center mb-6">
-
-                    <h1 class="text-xl font-semibold text-gray-800">
+                <div class="mb-8">
+                    <h1 class="font-display text-[28px] md:text-[32px] leading-tight text-adm-text-main font-semibold">
                         Pengajuan Berhasil
                     </h1>
-
-                    <p class="text-sm text-gray-500 mt-2">
-                        Pengajuan Surat Keterangan Domisili
-                        berhasil dikirim.
+                    <p class="font-sans font-light text-[14px] text-adm-text-body mt-2">
+                        Pengajuan Surat Keterangan Domisili Anda telah berhasil dikirim ke sistem.
                     </p>
-
                 </div>
-
 
                 {{-- Nomor Pengajuan --}}
-                <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
-
-                    <p class="text-xs text-gray-500 mb-1">
+                <div class="mb-8 p-5 bg-adm-canvas border border-adm-border rounded-[16px] text-left">
+                    <p class="text-[11px] font-mono tracking-widest text-adm-text-muted uppercase mb-1">
                         Nomor Pengajuan
                     </p>
-
-                    <p class="text-lg font-semibold text-gray-800">
+                    <p class="font-mono text-[18px] font-bold text-adm-text-main">
                         {{ $pengajuan->nomor_pengajuan }}
                     </p>
-
-                    <p class="text-xs text-gray-500 mt-2">
-                        Simpan nomor pengajuan ini untuk
-                        keperluan pengecekan status pengajuan.
+                    <p class="text-[12px] text-adm-text-muted mt-2">
+                        Gunakan nomor pengajuan di atas untuk memeriksa status permohonan surat Anda di menu "Cek Status".
                     </p>
-
                 </div>
-
 
                 {{-- Informasi Pengajuan --}}
-                <div class="border border-gray-200 rounded-md divide-y">
+                <div class="border border-adm-border rounded-[16px] divide-y divide-adm-border overflow-hidden bg-adm-card text-left">
 
-                    <div class="p-4 flex justify-between gap-4">
-
-                        <span class="text-sm text-gray-500">
-                            Nama
+                    <div class="p-4 flex justify-between items-center gap-4">
+                        <span class="text-[13px] font-medium text-adm-text-muted">
+                            Nama Pemohon
                         </span>
-
-                        <span class="text-sm font-medium text-gray-800 text-right">
+                        <span class="text-[13px] font-semibold text-adm-text-main text-right">
                             {{ $pengajuan->penduduk->nama_lengkap }}
                         </span>
-
                     </div>
 
-
-                    <div class="p-4 flex justify-between gap-4">
-
-                        <span class="text-sm text-gray-500">
-                            Layanan
+                    <div class="p-4 flex justify-between items-center gap-4">
+                        <span class="text-[13px] font-medium text-adm-text-muted">
+                            Jenis Layanan
                         </span>
-
-                        <span class="text-sm font-medium text-gray-800 text-right">
+                        <span class="text-[13px] font-semibold text-adm-text-main text-right">
                             {{ $pengajuan->layanan->nama_layanan }}
                         </span>
-
                     </div>
 
-
-                    <div class="p-4 flex justify-between gap-4">
-
-                        <span class="text-sm text-gray-500">
+                    <div class="p-4 flex justify-between items-center gap-4">
+                        <span class="text-[13px] font-medium text-adm-text-muted">
                             Status
                         </span>
-
-                        <span class="text-sm font-medium text-yellow-700">
+                        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold bg-adm-amber-bg text-adm-amber-fg border border-adm-amber-fg/10">
                             Menunggu Verifikasi
                         </span>
-
                     </div>
 
                 </div>
 
-
-                {{-- Informasi berikutnya --}}
-                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
-
-                    <p class="text-sm text-blue-800 leading-relaxed">
-
-                        Pengajuan Anda telah diterima oleh sistem.
-                        Petugas desa akan melakukan verifikasi
-                        terhadap data dan dokumen yang Anda kirimkan.
-
+                {{-- Informasi Berikutnya --}}
+                <div class="mt-8 p-5 bg-adm-blue-bg border border-adm-blue-fg/10 rounded-[16px] text-left">
+                    <p class="font-sans font-medium text-[13px] text-adm-blue-fg leading-relaxed">
+                        Pengajuan Anda saat ini sedang dalam antrean verifikasi oleh perangkat desa. Kami akan memvalidasi kesesuaian berkas and data yang Anda kirimkan. Silakan periksa status secara berkala.
                     </p>
-
                 </div>
 
-
                 {{-- Tombol --}}
-                <div class="mt-6 flex justify-center">
-
-                    <a
-                        href="{{ route('layanan') }}"
-                        class="px-5 py-2 bg-gray-800 text-white rounded-md text-sm hover:bg-gray-700">
-
-                        Kembali ke Layanan
-
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="{{ route('status.hasil', $pengajuan->id) }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-adm-primary text-white hover:bg-adm-primary-hover px-6 py-3 rounded-[8px] text-[14px] font-semibold transition-all shadow-md">
+                        Lihat Progres Surat
                     </a>
-
+                    <a href="{{ route('layanan') }}" class="w-full sm:w-auto inline-flex items-center justify-center bg-white border border-adm-border text-adm-text-main hover:bg-adm-canvas px-6 py-3 rounded-[8px] text-[14px] font-semibold transition-all shadow-sm">
+                        Kembali ke Layanan
+                    </a>
                 </div>
 
             </div>

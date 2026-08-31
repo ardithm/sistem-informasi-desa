@@ -22,7 +22,14 @@ class PublicController extends Controller
 {
     public function home(): View
     {
-        return view('public.home');
+        $beritas = Berita::query()
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        return view('public.home', compact('beritas'));
     }
 
     public function profil(): View
