@@ -1,7 +1,7 @@
 <aside
-    x-cloak
+    id="admin-sidebar"
     :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-    class="fixed inset-y-0 left-0 z-40 flex w-[240px] flex-col bg-adm-sidebar transition-transform duration-300 ease-in-out"
+    class="fixed inset-y-0 left-0 z-40 flex w-[240px] flex-col bg-adm-sidebar -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
 >
     {{-- ===== BRAND LOGO ===== --}}
     <div class="flex items-center gap-3 border-b border-adm-sidebar-border px-5 py-5">
@@ -17,10 +17,13 @@
     </div>
 
     {{-- ===== NAVIGATION MENU ===== --}}
-    <nav class="flex-1 overflow-y-auto px-3 py-4">
-        <div class="mb-2 px-2 text-[10px] font-semibold uppercase tracking-widest text-adm-sidebar-text/60">Menu</div>
-        <ul class="space-y-0.5">
+    <nav id="admin-sidebar-nav" class="flex-1 overflow-y-auto px-3 py-4">
 
+        {{-- GRUP 1: UTAMA --}}
+        <div class="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-wider text-adm-sidebar-text/60">
+            UTAMA
+        </div>
+        <ul class="space-y-0.5 mb-4">
             {{-- Dashboard --}}
             <li>
                 @php $isDashboard = request()->routeIs('admin.dashboard'); @endphp
@@ -52,7 +55,13 @@
                     Pengajuan
                 </a>
             </li>
+        </ul>
 
+        {{-- GRUP 2: DATA & KONTEN --}}
+        <div class="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-wider text-adm-sidebar-text/60">
+            DATA & KONTEN
+        </div>
+        <ul class="space-y-0.5 mb-4">
             {{-- Penduduk --}}
             <li>
                 @php $isPenduduk = request()->routeIs('admin.penduduks.*'); @endphp
@@ -100,7 +109,46 @@
                     Berita
                 </a>
             </li>
+        </ul>
 
+        {{-- GRUP 3: OUTPUT & PENGATURAN --}}
+        <div class="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-wider text-adm-sidebar-text/60">
+            OUTPUT & PENGATURAN
+        </div>
+        <ul class="space-y-0.5">
+            {{-- Laporan --}}
+            <li>
+                @php $isLaporan = request()->routeIs('admin.laporan.*'); @endphp
+                <a href="{{ route('admin.laporan.index') }}"
+                   class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-all duration-150
+                          {{ $isLaporan
+                              ? 'bg-adm-primary text-white shadow-[0_4px_12px_rgba(29,114,254,0.3)]'
+                              : 'text-adm-sidebar-text hover:bg-adm-sidebar-hover hover:text-white' }}"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Laporan
+                </a>
+            </li>
+
+            {{-- Kelola Akun (Super Admin Only) --}}
+            @if (Auth::user() && Auth::user()->isSuperAdmin())
+            <li>
+                @php $isUsers = request()->routeIs('admin.users.*'); @endphp
+                <a href="{{ route('admin.users.index') }}"
+                   class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-all duration-150
+                          {{ $isUsers
+                              ? 'bg-adm-primary text-white shadow-[0_4px_12px_rgba(29,114,254,0.3)]'
+                              : 'text-adm-sidebar-text hover:bg-adm-sidebar-hover hover:text-white' }}"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Kelola Akun
+                </a>
+            </li>
+            @endif
         </ul>
     </nav>
 
@@ -112,7 +160,9 @@
             </div>
             <div class="min-w-0 flex-1">
                 <div class="truncate text-[13px] font-medium text-white">{{ Auth::user()->username ?? 'Admin' }}</div>
-                <div class="text-[10px] text-adm-sidebar-text">Administrator</div>
+                <div class="text-[10px] text-adm-sidebar-text">
+                    {{ (Auth::user() && Auth::user()->role === 'super_admin') ? 'Super Administrator' : 'Administrator' }}
+                </div>
             </div>
         </div>
         <form method="POST" action="{{ route('logout') }}">

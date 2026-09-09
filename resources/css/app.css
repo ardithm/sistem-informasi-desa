@@ -8,11 +8,12 @@
 
 html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
 }
 
 body {
-    background: theme('colors.obsidian');
-    color: theme('colors.cloud');
+    background: #F8FAFC;
+    color: #475569;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -36,3 +37,61 @@ body {
 .delay-300 { transition-delay: 300ms; }
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
+
+/* Admin Seamless Page Transitions & Loading Bar */
+#admin-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2.5px;
+    width: 0%;
+    background: linear-gradient(90deg, #1D72FE, #60A5FA);
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.2s ease-out, opacity 0.2s ease-in-out;
+    box-shadow: 0 0 8px rgba(29, 114, 254, 0.5);
+}
+
+#admin-page-content {
+    view-transition-name: admin-content;
+    will-change: opacity, transform;
+}
+
+#admin-sidebar {
+    view-transition-name: admin-sidebar;
+}
+
+.admin-content-fade-in {
+    animation: adminFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes adminFadeIn {
+    0% {
+        opacity: 0.3;
+        transform: translateY(3px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* View Transitions API (Chrome / Edge / Safari 18+) */
+::view-transition-old(admin-content) {
+    animation: 0.15s cubic-bezier(0.4, 0, 1, 1) both adminFadeOut;
+}
+
+::view-transition-new(admin-content) {
+    animation: 0.18s cubic-bezier(0, 0, 0.2, 1) both adminFadeIn;
+}
+
+::view-transition-old(admin-sidebar),
+::view-transition-new(admin-sidebar) {
+    animation: none;
+}
+
+@keyframes adminFadeOut {
+    to {
+        opacity: 0;
+    }
+}

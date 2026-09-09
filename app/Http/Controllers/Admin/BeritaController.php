@@ -25,7 +25,10 @@ class BeritaController extends Controller
 
         $beritas = Berita::with('user')
             ->when($search, function ($query, $search) {
-                $query->where('judul', 'like', "%{$search}%");
+                $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'like', "%{$search}%")
+                        ->orWhere('isi', 'like', "%{$search}%");
+                });
             })
             ->when($status, function ($query, $status) {
                 $query->where('status', $status);

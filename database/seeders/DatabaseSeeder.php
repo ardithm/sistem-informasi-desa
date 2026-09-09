@@ -70,5 +70,7 @@ class DatabaseSeeder extends Seeder
                 $layanan
             );
         }
+
+        $this->call(DummyDataSeeder::class);
     }
 }

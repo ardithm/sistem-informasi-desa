@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class SuperAdminMiddleware
 {
     public function handle(
         Request $request,
@@ -16,8 +16,8 @@ class AdminMiddleware
             return redirect()->route('login');
         }
 
-        if (! in_array($request->user()->role, ['admin', 'super_admin'])) {
-            abort(403);
+        if ($request->user()->role !== 'super_admin') {
+            abort(403, 'Akses terbatas. Halaman ini hanya dapat diakses oleh Super Administrator.');
         }
 
         return $next($request);

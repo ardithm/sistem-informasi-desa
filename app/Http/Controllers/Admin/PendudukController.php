@@ -18,6 +18,8 @@ class PendudukController extends Controller
     public function index(Request $request): View
     {
         $search = $request->input('search');
+        $status = $request->input('status');
+        $jenisKelamin = $request->input('jenis_kelamin');
 
         $penduduks = Penduduk::query()
             ->when($search, function ($query, $search) {
@@ -30,13 +32,21 @@ class PendudukController extends Controller
                         );
                 });
             })
+            ->when($status, function ($query, $status) {
+                $query->where('status_penduduk', $status);
+            })
+            ->when($jenisKelamin, function ($query, $jenisKelamin) {
+                $query->where('jenis_kelamin', $jenisKelamin);
+            })
             ->orderBy('nama_lengkap')
             ->paginate(10)
             ->withQueryString();
 
         return view('admin.penduduks.index', compact(
             'penduduks',
-            'search'
+            'search',
+            'status',
+            'jenisKelamin'
         ));
     }
 

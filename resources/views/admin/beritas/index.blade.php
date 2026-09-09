@@ -43,7 +43,7 @@
             
             {{-- Header & Filter --}}
             <div class="border-b border-adm-border bg-adm-card px-6 py-4">
-                <form method="GET" action="{{ route('admin.beritas.index') }}" class="flex flex-col md:flex-row gap-4 items-end md:items-center">
+                <form method="GET" action="{{ route('admin.beritas.index') }}" class="flex flex-col md:flex-row gap-4 items-stretch md:items-end">
                     
                     <div class="flex-1 w-full relative">
                         <label class="block text-[11px] font-semibold uppercase tracking-widest text-adm-text-muted mb-1.5">Cari Berita</label>
@@ -54,32 +54,45 @@
                                 </svg>
                             </div>
                             <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Masukkan judul berita..."
-                                   class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2 pl-10 pr-3 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">
+                                   class="block w-full h-[38px] rounded-[8px] border border-adm-border bg-adm-input py-2 pl-10 pr-3 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">
                         </div>
                     </div>
 
                     <div class="w-full md:w-48 relative">
                         <label class="block text-[11px] font-semibold uppercase tracking-widest text-adm-text-muted mb-1.5">Status</label>
-                        <select name="status" class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2 px-3 text-[13px] text-adm-text-main focus:border-adm-primary focus:ring-adm-primary">
+                        <select name="status" class="block w-full h-[38px] rounded-[8px] border border-adm-border bg-adm-input py-2 pl-3 pr-8 text-[13px] text-adm-text-main focus:border-adm-primary focus:ring-adm-primary">
                             <option value="">Semua Status</option>
                             <option value="draft" @selected(($status ?? '') === 'draft')>Draft</option>
                             <option value="published" @selected(($status ?? '') === 'published')>Published</option>
                         </select>
                     </div>
 
-                    <div class="flex gap-2 w-full md:w-auto">
-                        <button type="submit" class="inline-flex items-center justify-center gap-1.5 w-full md:w-auto rounded-[8px] bg-adm-primary px-4 py-2 text-[13px] font-medium text-white transition hover:bg-adm-primary-hover shadow-sm">
+                    <div class="flex gap-2 w-full md:w-auto shrink-0 md:self-end">
+                        <button type="submit" class="inline-flex items-center justify-center w-full md:w-auto h-[38px] rounded-[8px] bg-adm-primary px-5 py-2 text-[13px] font-medium text-white transition hover:bg-adm-primary-hover shadow-sm border border-transparent">
                             Cari
                         </button>
                         
                         @if (($search ?? '') || ($status ?? ''))
-                        <a href="{{ route('admin.beritas.index') }}" class="inline-flex items-center justify-center gap-1.5 w-full md:w-auto rounded-[8px] bg-white border border-adm-border px-4 py-2 text-[13px] font-medium text-adm-text-main transition hover:bg-slate-50 shadow-sm">
+                        <a href="{{ route('admin.beritas.index') }}" class="inline-flex items-center justify-center w-full md:w-auto h-[38px] rounded-[8px] bg-white border border-adm-border px-4 py-2 text-[13px] font-medium text-adm-text-main transition hover:bg-slate-50 shadow-sm">
                             Reset
                         </a>
                         @endif
                     </div>
                 </form>
             </div>
+
+            {{-- Header info jika ada filter --}}
+            @if (($search ?? '') || ($status ?? ''))
+            <div class="flex items-center justify-between px-6 py-3 border-b border-adm-border bg-adm-canvas/50">
+                <div class="flex items-center gap-1.5 text-[11px] font-medium text-adm-primary bg-adm-primary-soft px-3 py-1 rounded-full">
+                    <span>Filter Aktif:</span>
+                    <span class="font-bold">{{ $beritas->total() }} berita ditemukan</span>
+                </div>
+                <a href="{{ route('admin.beritas.index') }}" class="text-[11px] font-medium text-adm-rose-fg hover:underline transition">
+                    Reset Filter
+                </a>
+            </div>
+            @endif
 
             {{-- Tabel --}}
             <div class="overflow-x-auto">
@@ -172,14 +185,26 @@
                         @empty
                         <tr>
                             <td colspan="4" class="px-5 py-16 text-center">
-                                <div class="mx-auto max-w-xs">
+                                <div class="mx-auto max-w-sm">
                                     <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-adm-canvas">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-adm-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15" />
                                         </svg>
                                     </div>
-                                    <p class="text-[13px] font-medium text-adm-text-main">Belum ada berita</p>
-                                    <p class="mt-1 text-[12px] text-adm-text-muted">Tidak ada data berita yang ditemukan atau belum dibuat.</p>
+                                    <p class="text-[14px] font-semibold text-adm-text-main">
+                                        {{ (($search ?? '') || ($status ?? '')) ? 'Tidak ada berita yang sesuai filter' : 'Belum ada berita' }}
+                                    </p>
+                                    <p class="mt-1 text-[12px] text-adm-text-muted">
+                                        {{ (($search ?? '') || ($status ?? '')) ? 'Silakan ubah kata kunci pencarian atau sesuaikan status berita.' : 'Tidak ada data berita yang ditemukan atau belum dibuat.' }}
+                                    </p>
+                                    @if (($search ?? '') || ($status ?? ''))
+                                    <div class="mt-4">
+                                        <a href="{{ route('admin.beritas.index') }}"
+                                           class="inline-flex items-center gap-1.5 rounded-[8px] bg-adm-primary px-4 py-2 text-[12px] font-semibold text-white transition hover:bg-adm-primary-hover shadow-sm">
+                                            Reset Filter
+                                        </a>
+                                    </div>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -188,9 +213,9 @@
                 </table>
             </div>
 
-            {{-- Pagination --}}
+            {{-- Footer Pagination --}}
             @if ($beritas->hasPages())
-            <div class="border-t border-adm-border bg-adm-card px-6 py-4">
+            <div class="px-6 py-4 border-t border-adm-border bg-adm-card">
                 {{ $beritas->links() }}
             </div>
             @endif

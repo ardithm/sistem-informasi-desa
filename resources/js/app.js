@@ -1,10 +1,17 @@
 import './bootstrap';
-
 import Alpine from 'alpinejs';
+import { initAdminNavigation } from './admin-navigation';
 
 window.Alpine = Alpine;
 
 Alpine.start();
+
+// Initialize Admin Seamless Navigation
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initAdminNavigation());
+} else {
+    initAdminNavigation();
+}
 
 // Intersection Observer for scroll animations
 document.addEventListener("DOMContentLoaded", () => {

@@ -245,6 +245,36 @@ Route::middleware(['auth', 'admin'])
             '/pengajuan/{pengajuan}/surat',
             [AdminPengajuanController::class, 'lihatSurat']
         )->name('pengajuan.surat');
+
+        Route::get(
+            '/laporan',
+            [\App\Http\Controllers\Admin\LaporanController::class, 'index']
+        )->name('laporan.index');
+
+        Route::get(
+            '/laporan/cetak-penduduk',
+            [\App\Http\Controllers\Admin\LaporanController::class, 'cetakPenduduk']
+        )->name('laporan.cetak-penduduk');
+
+        Route::get(
+            '/laporan/cetak-surat',
+            [\App\Http\Controllers\Admin\LaporanController::class, 'cetakSuratKeluar']
+        )->name('laporan.cetak-surat');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Super Admin User Management
+        |--------------------------------------------------------------------------
+        */
+        Route::middleware('super_admin')->group(function () {
+            Route::get('/users', [\App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('users.index');
+            Route::get('/users/create', [\App\Http\Controllers\Admin\AdminUserController::class, 'create'])->name('users.create');
+            Route::post('/users', [\App\Http\Controllers\Admin\AdminUserController::class, 'store'])->name('users.store');
+            Route::get('/users/{user}/edit', [\App\Http\Controllers\Admin\AdminUserController::class, 'edit'])->name('users.edit');
+            Route::put('/users/{user}', [\App\Http\Controllers\Admin\AdminUserController::class, 'update'])->name('users.update');
+            Route::patch('/users/{user}/toggle-active', [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleActive'])->name('users.toggle-active');
+            Route::delete('/users/{user}', [\App\Http\Controllers\Admin\AdminUserController::class, 'destroy'])->name('users.destroy');
+        });
     });
 
 

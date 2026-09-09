@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengajuan;
 use App\Models\Dokumen;
 use App\Models\Surat;
+use App\Models\Layanan;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,21 +17,58 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class AdminPengajuanController extends Controller
 {
     /**
-     * Menampilkan daftar pengajuan.
+     * Menampilkan daftar pengajuan dengan filter dan pagination.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $pengajuans = Pengajuan::with([
+        $search = $request->input('search');
+        $status = $request->input('status');
+        $layananId = $request->input('layanan_id');
+        $perPage = (int) $request->input('per_page', 10);
+        if (!in_array($perPage, [10, 25, 50, 100])) {
+            $perPage = 10;
+        }
+
+        $query = Pengajuan::with([
             'penduduk',
             'layanan',
-        ])
-            ->latest()
-            ->paginate(10);
+        ]);
 
-        return view(
-            'admin.pengajuan.index',
-            compact('pengajuans')
-        );
+        // Filter: Pencarian teks (Nomor Pengajuan, Nama Lengkap, NIK)
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nomor_pengajuan', 'like', "%{$search}%")
+                    ->orWhereHas('penduduk', function ($p) use ($search) {
+                        $p->where('nama_lengkap', 'like', "%{$search}%")
+                            ->orWhere('nik', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Filter: Status Pengajuan
+        if ($status && in_array($status, ['menunggu', 'diverifikasi', 'perlu_perbaikan', 'diproses', 'selesai', 'ditolak'])) {
+            $query->where('status', $status);
+        }
+
+        // Filter: Jenis Layanan
+        if ($layananId) {
+            $query->where('layanan_id', $layananId);
+        }
+
+        $pengajuans = $query->latest()
+            ->paginate($perPage)
+            ->withQueryString();
+
+        $layanans = Layanan::orderBy('nama_layanan')->get(['id', 'nama_layanan']);
+
+        return view('admin.pengajuan.index', compact(
+            'pengajuans',
+            'layanans',
+            'search',
+            'status',
+            'layananId',
+            'perPage'
+        ));
     }
 
     /**

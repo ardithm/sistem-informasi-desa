@@ -41,32 +41,70 @@
         {{-- Search & Table Container --}}
         <section class="rounded-[12px] border border-adm-border bg-adm-card shadow-[0_1px_3px_0_rgba(0,0,0,0.04)] overflow-hidden">
             
-            {{-- Header & Search --}}
+            {{-- Header & Search/Filter --}}
             <div class="border-b border-adm-border bg-adm-card px-6 py-4">
-                <form method="GET" action="{{ route('admin.penduduks.index') }}" class="flex flex-col sm:flex-row gap-3">
-                    <div class="relative flex-1 max-w-md">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <svg class="h-4 w-4 text-adm-text-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
+                <form method="GET" action="{{ route('admin.penduduks.index') }}" class="flex flex-col md:flex-row gap-4 items-stretch md:items-end">
+                    {{-- Input Pencarian --}}
+                    <div class="flex-1 w-full relative">
+                        <label class="block text-[11px] font-semibold uppercase tracking-widest text-adm-text-muted mb-1.5">Cari Penduduk</label>
+                        <div class="relative">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="h-4 w-4 text-adm-text-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                            <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari NIK atau Nama Lengkap..."
+                                   class="block w-full h-[38px] rounded-[8px] border border-adm-border bg-adm-input py-2 pl-10 pr-3 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary">
                         </div>
-                        <input type="text" name="search" value="{{ $search }}" placeholder="Cari NIK atau Nama Lengkap..."
-                               class="block w-full rounded-[8px] border-adm-border bg-adm-input py-2 pl-10 pr-3 text-[13px] text-adm-text-main placeholder:text-gray-400 focus:border-adm-primary focus:ring-adm-primary sm:leading-6">
                     </div>
 
-                    <div class="flex gap-2">
-                        <button type="submit" class="inline-flex items-center gap-1.5 rounded-[8px] bg-adm-primary px-4 py-2 text-[13px] font-medium text-white transition hover:bg-adm-primary-hover shadow-sm">
+                    {{-- Filter Status Penduduk --}}
+                    <div class="w-full md:w-44 relative">
+                        <label class="block text-[11px] font-semibold uppercase tracking-widest text-adm-text-muted mb-1.5">Status</label>
+                        <select name="status" class="block w-full h-[38px] rounded-[8px] border border-adm-border bg-adm-input py-2 pl-3 pr-8 text-[13px] text-adm-text-main focus:border-adm-primary focus:ring-adm-primary">
+                            <option value="">Semua Status</option>
+                            <option value="aktif" @selected(($status ?? '') === 'aktif')>Aktif</option>
+                            <option value="tidak_aktif" @selected(($status ?? '') === 'tidak_aktif')>Tidak Aktif</option>
+                        </select>
+                    </div>
+
+                    {{-- Filter Jenis Kelamin --}}
+                    <div class="w-full md:w-44 relative">
+                        <label class="block text-[11px] font-semibold uppercase tracking-widest text-adm-text-muted mb-1.5">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" class="block w-full h-[38px] rounded-[8px] border border-adm-border bg-adm-input py-2 pl-3 pr-8 text-[13px] text-adm-text-main focus:border-adm-primary focus:ring-adm-primary">
+                            <option value="">Semua Gender</option>
+                            <option value="L" @selected(($jenisKelamin ?? '') === 'L')>Laki-laki (L)</option>
+                            <option value="P" @selected(($jenisKelamin ?? '') === 'P')>Perempuan (P)</option>
+                        </select>
+                    </div>
+
+                    {{-- Tombol Aksi --}}
+                    <div class="flex gap-2 w-full md:w-auto shrink-0 md:self-end">
+                        <button type="submit" class="inline-flex items-center justify-center w-full md:w-auto h-[38px] rounded-[8px] bg-adm-primary px-5 py-2 text-[13px] font-medium text-white transition hover:bg-adm-primary-hover shadow-sm border border-transparent">
                             Cari
                         </button>
                         
-                        @if ($search)
-                        <a href="{{ route('admin.penduduks.index') }}" class="inline-flex items-center gap-1.5 rounded-[8px] bg-white border border-adm-border px-4 py-2 text-[13px] font-medium text-adm-text-main transition hover:bg-slate-50 shadow-sm">
+                        @if (($search ?? '') || ($status ?? '') || ($jenisKelamin ?? ''))
+                        <a href="{{ route('admin.penduduks.index') }}" class="inline-flex items-center justify-center w-full md:w-auto h-[38px] rounded-[8px] bg-white border border-adm-border px-4 py-2 text-[13px] font-medium text-adm-text-main transition hover:bg-slate-50 shadow-sm">
                             Reset
                         </a>
                         @endif
                     </div>
                 </form>
             </div>
+
+            {{-- Header info jika ada filter --}}
+            @if (($search ?? '') || ($status ?? '') || ($jenisKelamin ?? ''))
+            <div class="flex items-center justify-between px-6 py-3 border-b border-adm-border bg-adm-canvas/50">
+                <div class="flex items-center gap-1.5 text-[11px] font-medium text-adm-primary bg-adm-primary-soft px-3 py-1 rounded-full">
+                    <span>Filter Aktif:</span>
+                    <span class="font-bold">{{ $penduduks->total() }} penduduk ditemukan</span>
+                </div>
+                <a href="{{ route('admin.penduduks.index') }}" class="text-[11px] font-medium text-adm-rose-fg hover:underline transition">
+                    Reset Filter
+                </a>
+            </div>
+            @endif
 
             {{-- Tabel --}}
             <div class="overflow-x-auto">
@@ -141,14 +179,26 @@
                         @empty
                         <tr>
                             <td colspan="6" class="px-5 py-16 text-center">
-                                <div class="mx-auto max-w-xs">
+                                <div class="mx-auto max-w-sm">
                                     <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-adm-canvas">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-adm-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                         </svg>
                                     </div>
-                                    <p class="text-[13px] font-medium text-adm-text-main">Tidak ada data</p>
-                                    <p class="mt-1 text-[12px] text-adm-text-muted">Data penduduk tidak ditemukan atau belum ditambahkan.</p>
+                                    <p class="text-[14px] font-semibold text-adm-text-main">
+                                        {{ (($search ?? '') || ($status ?? '') || ($jenisKelamin ?? '')) ? 'Tidak ada data penduduk yang sesuai filter' : 'Belum ada data penduduk' }}
+                                    </p>
+                                    <p class="mt-1 text-[12px] text-adm-text-muted">
+                                        {{ (($search ?? '') || ($status ?? '') || ($jenisKelamin ?? '')) ? 'Silakan ubah kata kunci pencarian atau sesuaikan status/gender penduduk.' : 'Data penduduk tidak ditemukan atau belum ditambahkan.' }}
+                                    </p>
+                                    @if (($search ?? '') || ($status ?? '') || ($jenisKelamin ?? ''))
+                                    <div class="mt-4">
+                                        <a href="{{ route('admin.penduduks.index') }}"
+                                           class="inline-flex items-center gap-1.5 rounded-[8px] bg-adm-primary px-4 py-2 text-[12px] font-semibold text-white transition hover:bg-adm-primary-hover shadow-sm">
+                                            Reset Filter
+                                        </a>
+                                    </div>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
