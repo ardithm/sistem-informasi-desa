@@ -1,66 +1,43 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pelayanan Desa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Platform pelayanan administrasi desa yang memudahkan masyarakat mengajukan kebutuhan surat secara cepat, terstruktur, dan transparan. Sistem ini membantu desa dalam mengelola pengajuan surat, memverifikasi dokumen, serta memberikan akses status proses secara terbuka kepada warga.
 
-## About Laravel
+## Deskripsi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Pelayanan Desa adalah aplikasi digital yang dirancang untuk mempercepat proses pelayanan administrasi di lingkungan desa. Dengan sistem ini, masyarakat tidak perlu datang langsung berkali-kali hanya untuk mengecek status atau melengkapi berkas, karena seluruh proses dapat diikuti secara lebih terorganisir.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplikasi ini dibuat untuk mendukung layanan publik yang lebih cepat, akuntabel, dan mudah diakses oleh seluruh masyarakat.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Fitur Utama
 
-## Learning Laravel
+- Halaman informasi desa untuk profil, sejarah, berita, kontak, dan layanan yang tersedia
+- Form pengajuan layanan surat secara online
+- Proses verifikasi dokumen agar berkas yang masuk lebih terkontrol
+- Fitur revisi dokumen jika ada data atau lampiran yang perlu dilengkapi
+- Pantauan status pengajuan secara real-time untuk masyarakat
+- Manajemen data penduduk, layanan, berita, dan pengajuan dari sisi admin desa
+- Pembuatan surat resmi dan pencetakan dokumen sesuai kebutuhan layanan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Layanan yang Tersedia
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Surat Keterangan Domisili
+- Surat Pengantar KK
+- Surat Pengantar KTP
+- Surat Keterangan Tidak Mampu (SKTM)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Keunggulan Sistem
 
-## Laravel Sponsors
+- Mempercepat proses pelayanan surat desa
+- Mengurangi antrean dan kebutuhan tatap muka yang berulang
+- Menyediakan transparansi status pengajuan bagi masyarakat
+- Membantu admin desa dalam mengelola pengajuan dengan lebih rapi dan terdokumentasi
+- Meningkatkan kualitas layanan publik berbasis digital
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Tujuan Penggunaan
 
-### Premium Partners
+Aplikasi ini ditujukan untuk:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Masyarakat desa yang membutuhkan surat administrasi
+- Petugas desa dalam memproses pengajuan dan verifikasi dokumen
+- Pimpinan desa dalam memantau kinerja pelayanan dan laporan administratif
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
